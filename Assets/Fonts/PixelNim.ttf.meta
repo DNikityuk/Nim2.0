@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: ed35ac7611ee6b944b7bcf447cc1aed0
+timeCreated: 1496453740
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: PixelNim
+  fontNames:
+  - PixelNim
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b3540af945ebedd44a288b692dfebd46, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
