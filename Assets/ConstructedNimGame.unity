@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9eb6b999241744dbcfead0419d31bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1214369430}
+  controller: {fileID: 0}
 --- !u!114 &445730323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,8 +1327,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1214369431}
-  - component: {fileID: 1214369430}
   - component: {fileID: 1214369432}
+  - component: {fileID: 1214369430}
   m_Layer: 0
   m_Name: gameField
   m_TagString: Untagged
@@ -1344,15 +1344,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1214369429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f461e4463f96f74408bb2ed122786954, type: 3}
+  m_Script: {fileID: 11500000, guid: bc6d0e03b7989494386b81a22a06b83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grundy: 
   heaps: []
   resultView: {fileID: 617309339}
   paw: {fileID: 1807636551}
   pawComp: {fileID: 660694132}
-  endButton: {fileID: 1457932565}
-  pauseButton: {fileID: 46559269}
 --- !u!4 &1214369431
 Transform:
   m_ObjectHideFlags: 0
@@ -1598,7 +1597,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 617309336}
-        m_MethodName: playAgain
+        m_MethodName: playAgainConstructed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

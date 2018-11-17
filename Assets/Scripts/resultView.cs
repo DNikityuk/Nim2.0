@@ -28,5 +28,8 @@ public class resultView : MonoBehaviour {
 	public void backMenu() {
         SceneManager.LoadScene("MenuWindow");
     }
-	
+
+    public void playAgainConstructed() {
+        SceneManager.LoadScene("ConstructedNimGame");
+    }
 }

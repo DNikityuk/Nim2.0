@@ -4,6 +4,7 @@ using System.Collections;
 public class onRockListner : MonoBehaviour {
     int isSelected = 0;
     bool canBeSelected = true;
+    bool selectRequest = false;
     private bool isShake = false;
     private bool onMouseDown = false;
     int position = 0;
@@ -16,21 +17,8 @@ public class onRockListner : MonoBehaviour {
         y = transform.position.y;
     }
 
-	void OnMouseDown() {
-        if(isSelected == 0 && canBeSelected) {
-            isSelected = 1;
-            StartCoroutine(shake());
-            isShake = true;
-            onMouseDown = true;          
-        }
-        else {
-            if (onMouseDown){
-                isSelected = 0;
-                StopCoroutine(shake());
-                isShake = false;
-                onMouseDown = false;
-            }
-        }
+    void OnMouseDown() {
+        selectRequest = true;
     }
 
     void Update() {
@@ -122,5 +110,13 @@ public class onRockListner : MonoBehaviour {
 
     public void setReadyForDeleteComp() {
         readyForDelete = 2;
+    }
+
+    public bool getSelectRequest() {
+        return selectRequest;
+    }
+
+    public void setSelectRequest(bool val) {
+        selectRequest = val;
     }
 }

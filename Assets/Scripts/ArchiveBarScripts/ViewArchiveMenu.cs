@@ -11,19 +11,13 @@ public class ViewArchiveMenu : MonoBehaviour {
     private IconPlayer[] iconList;
     float startX = -7.063f;
     float startY = 3.6019f;
-
-    // Use this for initialization
-    void Start() {
-        while (true) {
-            if (this.GetComponent<Controller>().archive == null)
-                continue;
-            archive = this.GetComponent<Controller>().archive;
-            iconList = new IconPlayer[6];
-            break;
-        }
+    
+    
+    public void setArchive(ArhiveGame ag) {
+        archive = ag;
+        iconList = new IconPlayer[6];
     }
 
-    // Update is called once per frame
     void Update() {
         if (step != archive.getNumStep()) {
             if (archive.getStepPlayer(archive.getNumStep()) == 1) {

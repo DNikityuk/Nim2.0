@@ -695,7 +695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &445730321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1348,11 +1348,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heaps: []
+  firstTurnView: {fileID: 445730325}
   resultView: {fileID: 617309339}
   paw: {fileID: 1807636551}
   pawComp: {fileID: 660694132}
-  endButton: {fileID: 1457932565}
-  pauseButton: {fileID: 46559269}
 --- !u!4 &1214369431
 Transform:
   m_ObjectHideFlags: 0

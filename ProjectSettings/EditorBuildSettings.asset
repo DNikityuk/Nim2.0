@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Game.unity
     guid: f49f978a7e8d6e84a89fc330bfb06942
   - enabled: 1
+    path: Assets/ConstructedNimGame.unity
+    guid: 8cdf36c8b27d5534687307fb39757b86
+  - enabled: 1
     path: Assets/StatisticWindow.unity
     guid: 885711432d51daa48912f7ecbf2fed04
   - enabled: 0

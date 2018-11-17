@@ -127,7 +127,7 @@ public class EducationController : Controller  {
 
     void takeTheRocks()
     {
-        paw.movePaw(heaps[selectedHeap].getFirseSelectedRock(),
+        paw.movePaw(heaps[selectedHeap].getFirstSelectedRock(),
                                         selectedHeap,
                                         heaps[selectedHeap].getRockCount() - 1);
 

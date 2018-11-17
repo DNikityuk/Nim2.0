@@ -13,9 +13,22 @@ public class MenuButtonsView : MonoBehaviour {
     }
 
     public void ratingGameClick() {
-        GameObject.Find("MenuCanvas").GetComponent<MenuView>().enableLoginMenu(false);
+        MenuView menuCanvas = GameObject.Find("MenuCanvas").GetComponent<MenuView>();
+        int game = menuCanvas.getGameNumber();
+        menuCanvas.enableLoginMenu(false);
+        menuCanvas.setActiveChangeButton(false);
         Destroy(GameObject.Find("menuButtons(Clone)"));
-        Instantiate(Resources.Load("gameProperties"), new Vector3(0.0f, -48.0f, 0.0f), Quaternion.identity);
+
+        switch(game) {
+            case 1:
+                Instantiate(Resources.Load("originalNimProperties"), new Vector3(0.0f, -48.0f, 0.0f), Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(Resources.Load("constructedNimProperties"), new Vector3(0.0f, -48.0f, 0.0f), Quaternion.identity);
+                break;
+            case 3:
+                break;
+        }
     }
 
     public void exitClick() {

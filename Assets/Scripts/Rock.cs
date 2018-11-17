@@ -11,6 +11,7 @@ public class Rock : MonoBehaviour {
 
     public Rock() { 
     }
+
     public Rock(int rockNum, int numHeap) {
         rockNumber = rockNum;
         showRock(numHeap);
@@ -60,5 +61,13 @@ public class Rock : MonoBehaviour {
 
     public void setCanBeSelected(bool can) {
         rocListener.setCanBeSelected(can);
+    }
+
+    public bool getSelectRequest() {
+        return rocListener.getSelectRequest();
+    }
+
+    public void setSelectRequest(bool val) {
+        rocListener.setSelectRequest(val);
     }
 }

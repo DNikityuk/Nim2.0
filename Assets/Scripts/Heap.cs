@@ -56,23 +56,33 @@ public class Heap : MonoBehaviour {
     public bool isSelectedHeap() {
         for (int i = 0; i < rockCount; i++) {
             if (rocks[i].checkSelect()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool isSelectedRequestHeap() {
+        for (int i = 0; i < rockCount; i++) {
+            if (rocks[i].getSelectRequest()) {
+                rocks[i].setSelectRequest(false);
+                rocks[i].setSelected();
                 rocks[i].setMouseDown();
-                for (i++; i < rockCount; i++) {
-                    rocks[i].setSelected();
-                    rocks[i].resetMouseDown();
+                for (int j = i + 1; j < rockCount; j++) {
+                    rocks[j].setSelected();
+                    rocks[j].resetMouseDown();
                 }
                 return true;
             }
         }
         return false;
     }
-    public void removeSelectedHeap()
-    {
-        for (int i = 0; i < rockCount; i++)
-        {
-            if (rocks[i].checkSelect())
-            {
+
+    public void removeSelectedHeap() {
+        for (int i = 0; i < rockCount; i++) {
+            if (rocks[i].checkSelect()) {
                 rocks[i].resetSelected();
+                rocks[i].resetMouseDown();
             }
         }
     }
@@ -102,7 +112,7 @@ public class Heap : MonoBehaviour {
         }
     }
 
-    public int getFirseSelectedRock() {
+    public int getFirstSelectedRock() {
         for (int i = 0; i < rockCount; i++) {
             if (rocks[i].checkSelect()) {
                 return i;
@@ -110,5 +120,26 @@ public class Heap : MonoBehaviour {
         }
         return -1;
     }
-    
+
+    public bool hasSelectRequest() {
+        for (int i = 0; i < rockCount; i++) {
+            if (rocks[i].getSelectRequest())
+                return true;
+        }
+        return false;
+    }
+
+    public bool limitComplience(int ftLimit, int scLimit) {
+        for (int i = 0; i < rockCount; i++) {
+            if (rocks[i].getSelectRequest()) {
+                if (rockCount - i == ftLimit || rockCount - i == scLimit)
+                    return true;
+                else {
+                    rocks[i].setSelectRequest(false);
+                }
+            }
+        }
+        return false;
+    }
+
 }

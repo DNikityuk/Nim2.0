@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class gamePropertiesView : MonoBehaviour {
+public class originalNimPropertiesView : MonoBehaviour {
 
     public Dropdown firstTurn;
     public Dropdown gameComplexity;
@@ -11,13 +11,13 @@ public class gamePropertiesView : MonoBehaviour {
     static int gameLevel;
     static int firstPlayer;
 
-    void Start() {
+	void Start() {
 		numberOfHeap = 2;
 	}
 	
     public void startGameClick() {
         firstPlayer = firstTurn.value;
-        if (firstPlayer == 2) {
+        if(firstPlayer == 2) {
             firstPlayer = new System.Random().Next(0, 2);
         }
         gameLevel = gameComplexity.value;
@@ -55,7 +55,7 @@ public class gamePropertiesView : MonoBehaviour {
         menuCanvas.setActiveChangeButton(true);
         menuCanvas.enableLoginMenu(true);
         Instantiate(Resources.Load("menuButtons"), new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-        Destroy(GameObject.Find("gameProperties(Clone)"));
+        Destroy(GameObject.Find("originalNimProperties(Clone)"));
     }
 
     public static int getFirstTurn() {

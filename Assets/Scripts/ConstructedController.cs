@@ -3,10 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class Controller : MonoBehaviour {
+public class ConstructedController : MonoBehaviour {
     protected int numOfHeaps;
     int gameNum = 0;
     int gameLevel;
+    int ftLimit;
+    int scLimit;
+    public int[] grundy;
     public Heap[] heaps;
     protected ComputerPlayer cp;
     public ArhiveGame archive;
@@ -27,11 +30,13 @@ public class Controller : MonoBehaviour {
 
     void Start() {
         endGame = false;
-        gameLevel = originalNimPropertiesView.getGameLevel();
-        numOfHeaps = originalNimPropertiesView.getNumberOfHeap();
+        ftLimit = constructedNimPropertiesView.getFtLimit();
+        scLimit = constructedNimPropertiesView.getScLimit();
+        gameLevel = constructedNimPropertiesView.getGameLevel();
+        numOfHeaps = constructedNimPropertiesView.getNumberOfHeap();
         random = new System.Random();
         rockGenerator(numOfHeaps);
-        blockAllHeaps();
+        //blockAllHeaps();
         cp = new ComputerPlayer(this, gameLevel);
         archive = new ArhiveGame(getState());
         GetComponent<ViewArchiveMenu>().setArchive(archive);
@@ -39,7 +44,8 @@ public class Controller : MonoBehaviour {
         pauseButton = GameObject.Find("pauseButton").GetComponent<Button>();
         timer = GameObject.Find("TimerText").GetComponent<TimerCount>();
         enabledGameButtons(false);
-        setStartPlayer(originalNimPropertiesView.getFirstTurn());
+        fillGrundy();
+        setStartPlayer(constructedNimPropertiesView.getFirstTurn());
         //firstTurnView.GetComponent<firstTurnView>().setEnabled(true);
     }
 
@@ -64,11 +70,13 @@ public class Controller : MonoBehaviour {
 
                     for (int i = 0; i < numOfHeaps; i++) {
                         if (heaps[i].hasSelectRequest()) {
-                            for (int j = 0; j < numOfHeaps; j++) {
-                                heaps[j].removeSelectedHeap();
+                            if (heaps[i].limitComplience(ftLimit, scLimit)) { 
+                                for (int j = 0; j < numOfHeaps; j++) {
+                                    heaps[j].removeSelectedHeap();
+                                }
+                                if (heaps[i].isSelectedRequestHeap())
+                                    break;
                             }
-                            if (heaps[i].isSelectedRequestHeap())
-                                break;
                         }
                     }
 
@@ -86,7 +94,7 @@ public class Controller : MonoBehaviour {
                 }
                 else {
                     endButton.interactable = false;
-                    cp.computerStep();
+                    cp.computerStepConstructed();
                     archive.addState(getState());
                     StartCoroutine(pauseAndActiveEndButton());
                     setCurrentPlayer(0);
@@ -144,7 +152,7 @@ public class Controller : MonoBehaviour {
     protected virtual void rockGenerator(int num) {
         heaps = new Heap[num];
         for (int i = 0; i < num; i++) {            
-            heaps[i] = new Heap(i, random.Next(1, 8));
+           heaps[i] = new Heap(i, random.Next(5, 8));
         }
     }
 
@@ -216,7 +224,7 @@ public class Controller : MonoBehaviour {
 
     public bool canContinueGame() {
         for (int i = 0; i < numOfHeaps; i++) {
-            if (heaps[i].getRockCount() > 0)
+            if (heaps[i].getRockCount() >= ftLimit || heaps[i].getRockCount() >= scLimit)
                 return true;
         }
         return false;
@@ -250,5 +258,52 @@ public class Controller : MonoBehaviour {
 
     public void setPointsPawComp(int xStart, int y, int xEnd) {
         pawComp.setPoints(xStart, y, xEnd);
+    }
+
+    private void fillGrundy() {
+        if(ftLimit == scLimit) {
+            grundy = new int[ftLimit * 2];
+        }
+        else {
+            grundy = new int[ftLimit + scLimit];
+        }
+        for (int i = 0; i < grundy.Length; i++) {
+            grundy[i] = mex(i - ftLimit, i - scLimit);
+        }
+    }
+
+    private int mex(int ftMove, int scMove) {
+        int[] grundyMoves = {-1, -1};
+        int value = 0;
+
+        if (ftMove >= 0)
+            grundyMoves[0] = grundy[ftMove];
+        if (scMove >= 0)
+            grundyMoves[1] = grundy[scMove];
+        while (true) {
+            if (grundyMoves[0] == value || grundyMoves[1] == value)
+                value++;
+            else {
+                return value;
+            }
+        }
+    }
+
+    public int getGrundyHeap(int i) {
+        int r = getNumberRocksInHeap(i) % grundy.Length;
+        return grundy[r];
+    }
+
+    public int getGrundyHeapByNum(int num) {
+        int r = num % grundy.Length;
+        return grundy[r];
+    }
+
+    public int getFtLimit() {
+        return ftLimit;
+    }
+
+    public int getScLimit() {
+        return scLimit;
     }
 }
