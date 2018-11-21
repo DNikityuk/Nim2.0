@@ -32,4 +32,8 @@ public class resultView : MonoBehaviour {
     public void playAgainConstructed() {
         SceneManager.LoadScene("ConstructedNimGame");
     }
+
+    public void playAgainDates() {
+        SceneManager.LoadScene("DatesGame");
+    }
 }

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/ConstructedNimGame.unity
     guid: 8cdf36c8b27d5534687307fb39757b86
   - enabled: 1
+    path: Assets/DatesGame.unity
+    guid: b91299c465a90b14f8bda8c92a50d5d1
+  - enabled: 1
     path: Assets/StatisticWindow.unity
     guid: 885711432d51daa48912f7ecbf2fed04
   - enabled: 0

@@ -27,6 +27,7 @@ public class MenuButtonsView : MonoBehaviour {
                 Instantiate(Resources.Load("constructedNimProperties"), new Vector3(0.0f, -48.0f, 0.0f), Quaternion.identity);
                 break;
             case 3:
+                Instantiate(Resources.Load("datesProperties"), new Vector3(0.0f, -48.0f, 0.0f), Quaternion.identity);
                 break;
         }
     }

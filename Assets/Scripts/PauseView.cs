@@ -6,19 +6,25 @@ public class PauseView : MonoBehaviour {
 
     Controller control;
     ConstructedController constControl;
+    DatesController datesController;
 
-	public void backToMenu() {
+    public void backToMenu() {
         SceneManager.LoadScene("MenuWindow");
     }
 
     public virtual void backToGame() {
         control = GameObject.Find("gameField").GetComponent<Controller>();
         constControl = GameObject.Find("gameField").GetComponent<ConstructedController>();
-        if (control == null) {
+        datesController = GameObject.Find("gameField").GetComponent<DatesController>();
+        if (control == null && datesController == null) {
             continueGameConstruct();
         }
-        else {
-            continueGame();
+        else 
+        {
+            if (datesController == null)
+                continueGame();
+            else
+                continueGameDates();
         }
     }
 
@@ -45,6 +51,19 @@ public class PauseView : MonoBehaviour {
         }
         constControl.unblockAllHeaps();
         constControl.setPause(false);
+        Destroy(GameObject.Find("PauseView(Clone)"));
+    }
+
+    public virtual void continueGameDates() {
+        if (GameObject.Find("gameField") == null)
+            ; //constControl = GameObject.Find("educationField").GetComponent<EducationController>();
+        else {
+            datesController = GameObject.Find("gameField").GetComponent<DatesController>();
+            datesController.startTimer();
+        }
+
+        datesController.setEnabledCells(true);
+        datesController.setPause(false);
         Destroy(GameObject.Find("PauseView(Clone)"));
     }
 

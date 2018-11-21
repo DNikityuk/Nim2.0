@@ -233,6 +233,7 @@ public class Controller : MonoBehaviour {
     public void enabledGameButtons(bool value) {
         endButton.enabled = value;
         pauseButton.enabled = value;
+		//GameObject.Find("noteButton").GetComponent<Button>().enabled = value;
     }
 
     public void setPause(bool value) {
@@ -250,5 +251,9 @@ public class Controller : MonoBehaviour {
 
     public void setPointsPawComp(int xStart, int y, int xEnd) {
         pawComp.setPoints(xStart, y, xEnd);
+    }
+	
+	public void openNote() {
+        GameObject.Find("CanvasNote").GetComponent<Note>().open();
     }
 }
