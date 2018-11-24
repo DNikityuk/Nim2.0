@@ -142,4 +142,22 @@ public class Heap : MonoBehaviour {
         return false;
     }
 
+    public void setShowRightRocks(int ftLimit, int scLimit) {
+        if (ftLimit != scLimit) {
+            int buf = rockCount - ftLimit;
+            if (buf >= 0) {
+                rocks[buf].setShowRightRocks(true);
+            }
+            buf = rockCount - scLimit;
+            if (buf >= 0) {
+                rocks[buf].setShowRightRocks(true);
+            }
+        }
+        else {
+            int buf = rockCount - ftLimit;
+            if (buf >= 0) {
+                rocks[buf].setShowRightRocks(true);
+            }
+        }
+    }
 }

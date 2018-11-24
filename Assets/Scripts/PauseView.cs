@@ -7,8 +7,43 @@ public class PauseView : MonoBehaviour {
     Controller control;
     ConstructedController constControl;
     DatesController datesController;
+    public Image[] rulesImage;
+    public Button continueButton;
+    public Button mainMenuButton;
+    public Button rulesButton;
+
+    public void rules() {
+        control = GameObject.Find("gameField").GetComponent<Controller>();
+        constControl = GameObject.Find("gameField").GetComponent<ConstructedController>();
+        datesController = GameObject.Find("gameField").GetComponent<DatesController>();
+        mainMenuButton.gameObject.SetActive(false);
+        rulesButton.gameObject.SetActive(false);
+        float x = continueButton.transform.position.x;
+        continueButton.transform.position = new Vector3 (x, 163, 0);
+        if (control == null && datesController == null) {
+            rulesImage[0].gameObject.SetActive(true);
+        }
+        else {
+            if (datesController == null)
+                rulesImage[2].gameObject.SetActive(true);
+            else
+                rulesImage[1].gameObject.SetActive(true);
+        }
+    }
 
     public void backToMenu() {
+        control = GameObject.Find("gameField").GetComponent<Controller>();
+        constControl = GameObject.Find("gameField").GetComponent<ConstructedController>();
+        datesController = GameObject.Find("gameField").GetComponent<DatesController>();
+        if (control == null && datesController == null) {
+            MenuView.setGameNum(constControl.getGameNum());
+        }
+        else {
+            if (datesController == null)
+                MenuView.setGameNum(control.getGameNum());
+            else
+                MenuView.setGameNum(datesController.getGameNum());
+        }
         SceneManager.LoadScene("MenuWindow");
     }
 

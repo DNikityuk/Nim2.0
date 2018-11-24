@@ -24,9 +24,15 @@ public class IconPlayer : MonoBehaviour {
         else
             iconPrefab = (GameObject)Instantiate(Resources.Load("compIcon"));
         iconPrefab.GetComponent<IconListener>().setStep(step);
-        iconPrefab.GetComponent<IconListener>().setState(archive.getState(step));
-        iconPrefab.GetComponent<IconListener>().setTakeRock(archive.getNumberOfRock(step));
-        iconPrefab.GetComponent<IconListener>().setTakeHeah(archive.getNumberOfHeap(step));
+        if (GameObject.Find("gameField").GetComponent<DatesController>() == null) {
+            iconPrefab.GetComponent<IconListener>().setState(archive.getState(step));
+            iconPrefab.GetComponent<IconListener>().setTakeRock(archive.getNumberOfRock(step));
+            iconPrefab.GetComponent<IconListener>().setTakeHeah(archive.getNumberOfHeap(step));
+        }
+        else {
+            iconPrefab.GetComponent<IconListener>().setStateDates(archive.getStateDates(step));
+            iconPrefab.GetComponent<IconListener>().setPrevStateDates(archive.getPrevStateDates(step));
+        }
     }
 
     public IconPlayer(IconPlayer icon) {
@@ -39,12 +45,15 @@ public class IconPlayer : MonoBehaviour {
     public GameObject getIconPrefab() {
         return iconPrefab;
     }
+
     public int getPlayer() {
         return player;
     }
+
     public int getStep() {
         return step;
     }
+
     public void destroyPrefab() {
         Destroy(iconPrefab);
     }

@@ -10,6 +10,25 @@ public class ArhiveGame {
     public int firstPlayer = -1;
     public int numStep = 0;
 
+    public List<string> archiveDates;
+
+    public ArhiveGame(string startDate) {
+        archiveDates = new List<string>();
+        archiveDates.Add(startDate);
+    }
+
+    public void addStateDate(string date) {
+        archiveDates.Add(date);
+        numStep++;
+    }
+
+    public string getStateDates(int step) {
+        return archiveDates[step];
+    }
+    public string getPrevStateDates(int step) {
+        return archiveDates[step - 1];
+    }
+
     public ArhiveGame(int[] heap) {
         archiveHeaps = new List<int[]>();
         archiveHeaps.Add(heap);

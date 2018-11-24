@@ -16,6 +16,7 @@ public class authView : MonoBehaviour {
     public void closeWindow() {
         GameObject.Find("menuButtons(Clone)").GetComponent<Canvas>().enabled = true;
         GameObject.Find("MenuCanvas").GetComponent<MenuView>().enableLoginMenu(true);
+        GameObject.Find("MenuCanvas").GetComponent<MenuView>().setActiveChangeButton(true);
         Destroy(GameObject.Find("authorization(Clone)"));
     }
 

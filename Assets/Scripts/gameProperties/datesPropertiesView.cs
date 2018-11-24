@@ -30,6 +30,8 @@ public class datesPropertiesView : MonoBehaviour {
     }
 
     public void startGameClick() {
+        if (startDay > finalDay)
+            return;
         if (finalMonth < startMonth)
             return;
         if (finalMonth == startMonth && finalDay <= startDay) {

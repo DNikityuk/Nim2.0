@@ -1,30 +1,27 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
 using UnityEngine.UI;
 
 public class MenuView : MonoBehaviour {
 
+    public Sprite[] changeImages;
     public GameObject rightChangeGameButton;
     public GameObject leftChangeGameButton;
-    private GameObject rightChangerCanvas;
-    private GameObject leftChangerCanvas;
     public GameObject authButton;
     public GameObject regButton;
     public Sprite[] logo;
     public GameObject logoPlace;
-    private int gameNumber;
+    private static int gameNumber = 1;
     private int maxGameCount;
 
     void Start() {
-        gameNumber = 1;
+        //Screen.SetResolution(1024, 576, false);
         maxGameCount = logo.Length;
-        rightChangerCanvas = GameObject.Find("RightChangerCanvas");
-        leftChangerCanvas = GameObject.Find("LeftChangerCanvas"); ;
         if (Authorization.isAuth()) {
             enableLoginMenu(false);
         }
-        //Screen.SetResolution(1024, 576, false);
         Instantiate(Resources.Load("menuButtons"), new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        setLogo();
     }
 	
 	public void authButtonOver() {
@@ -43,25 +40,25 @@ public class MenuView : MonoBehaviour {
         regButton.GetComponent<Transform>().Translate(0.0f, -5.0f, 0.0f);
     }
 
+    public void leftChangerOver() {
+        leftChangeGameButton.GetComponent<Image>().sprite = changeImages[1];
+    }
+
+    public void rightChangerOver() {
+        rightChangeGameButton.GetComponent<Image>().sprite = changeImages[3];
+    }
+
+    public void leftChangerExit() {
+        leftChangeGameButton.GetComponent<Image>().sprite = changeImages[0];
+    }
+
+    public void rightChangerExit() {
+        rightChangeGameButton.GetComponent<Image>().sprite = changeImages[2];
+    }
+
     public void enableLoginMenu(bool value) {
         authButton.SetActive(value);
         regButton.SetActive(value);
-    }
-
-    public void rightChangeGameOver() {
-        rightChangeGameButton.GetComponent<Transform>().Translate(10.0f, 0.0f, 0.0f);
-    }
-
-    public void rightChangeGameExit() {
-        rightChangeGameButton.GetComponent<Transform>().Translate(-10.0f, 0.0f, 0.0f);
-    }
-
-    public void leftChangeGameOver() {
-        leftChangeGameButton.GetComponent<Transform>().Translate(-10.0f, 0.0f, 0.0f);
-    }
-
-    public void leftChangeGameExit() {
-        leftChangeGameButton.GetComponent<Transform>().Translate(10.0f, 0.0f, 0.0f);
     }
 
     public void authClick() {
@@ -82,7 +79,11 @@ public class MenuView : MonoBehaviour {
 
     public void setGameNumber(int num) {
         gameNumber += num;
-        if(gameNumber == 0) {
+        setLogo();
+    }
+
+    private void setLogo() {
+        if (gameNumber == 0) {
             gameNumber = maxGameCount;
         }
         if (gameNumber == maxGameCount + 1) {
@@ -96,8 +97,17 @@ public class MenuView : MonoBehaviour {
     }
 
     public void setActiveChangeButton(bool value) {
-        rightChangerCanvas.SetActive(value);
-        leftChangerCanvas.SetActive(value);
+        rightChangeGameButton.SetActive(value);
+        leftChangeGameButton.SetActive(value);
     }
 
+    public static void setGameNum(int game) {
+        gameNumber = game;
+    }
+
+    void Awake() {
+        #if UNITY_STANDALONE_WIN
+        Screen.SetResolution(1024, 576, false);
+        #endif
+    }
 }

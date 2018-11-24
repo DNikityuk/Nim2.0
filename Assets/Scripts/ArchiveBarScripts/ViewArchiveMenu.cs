@@ -11,17 +11,21 @@ public class ViewArchiveMenu : MonoBehaviour {
     private IconPlayer[] iconList;
     float startX = -7.063f;
     float startY = 3.6019f;
-    
-    
+    float wait = 2.0f;
+
+
     public void setArchive(ArhiveGame ag) {
         archive = ag;
         iconList = new IconPlayer[6];
+        if (GameObject.Find("gameField").GetComponent<DatesController>() != null) {
+            wait = 0.01f;
+        }
     }
 
     void Update() {
         if (step != archive.getNumStep()) {
             if (archive.getStepPlayer(archive.getNumStep()) == 1) {
-                StartCoroutine(createIcon());
+                StartCoroutine(createIcon(wait));
                 step++;
             }
             else {
@@ -33,8 +37,8 @@ public class ViewArchiveMenu : MonoBehaviour {
         }
     }
 
-    public IEnumerator createIcon() {
-        yield return new WaitForSeconds(2f);
+    public IEnumerator createIcon(float wait) {
+        yield return new WaitForSeconds(wait);
         icon = new IconPlayer(archive, archive.getNumStep(), archive.getStepPlayer(archive.getNumStep()));
         addIconList(icon);
         showIcon();

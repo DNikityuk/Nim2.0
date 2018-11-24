@@ -52,7 +52,7 @@ public class constructedNimPropertiesView : MonoBehaviour {
     }
 
     public void deleteFtLimit() {
-        if (ftLimit > 2) {
+        if (ftLimit > 1) {
             ftLimit--;
             updateCounter(ftLimitText, ftLimit);
         }
@@ -66,7 +66,7 @@ public class constructedNimPropertiesView : MonoBehaviour {
     }
 
     public void deleteScLimit() {
-        if (scLimit > 2) {
+        if (scLimit > 1) {
             scLimit--;
             updateCounter(scLimitText, scLimit);
         }

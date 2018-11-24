@@ -11,6 +11,7 @@ public class onRockListner : MonoBehaviour {
     float x;
     float y;
     int readyForDelete = 0;
+    bool showRight = false;
 
 	void Start () {
         x = transform.position.x;
@@ -34,6 +35,28 @@ public class onRockListner : MonoBehaviour {
                 isShake = false;
             }
         }
+        if (showRight) {
+            setShowRightRocks(false);
+            StartCoroutine(changeColorRock());
+            if (isSelected == 0) 
+                StartCoroutine(shakeRightMoves());
+        }
+    }
+
+    public IEnumerator shakeRightMoves() {
+        int pos = 1;
+        for (int i = 0; i < 3; i++) { 
+            if (pos == 1) {
+                transform.Translate(0.1f, 0.0f, 0.0f);
+                pos = 2;
+            }
+            else {
+                transform.Translate(-0.1f, 0.0f, 0.0f);
+                pos = 1;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+        transform.position = new Vector2(x, y);
     }
 
     public IEnumerator shake() {
@@ -118,5 +141,15 @@ public class onRockListner : MonoBehaviour {
 
     public void setSelectRequest(bool val) {
         selectRequest = val;
+    }
+
+    public void setShowRightRocks(bool val) {
+        showRight = val;
+    }
+
+    public IEnumerator changeColorRock() {
+        GetComponent<SpriteRenderer>().color = new Color32(255, 93, 109, 255);
+        yield return new WaitForSeconds(0.5f);
+        GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 }

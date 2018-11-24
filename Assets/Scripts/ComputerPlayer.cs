@@ -210,7 +210,7 @@ public class ComputerPlayer : MonoBehaviour {
         int day = datesController.getCurrentDay();
         int rand = Random.Range(1, 5);
         for (int i = 0; i < 2; i++) {
-            if (rand != 1) {
+            if (rand != 1 ) {
                 if (datesController.getFinalDay() >= day + 1 && win[month, day + 1] == 2) {
                     datesController.computerStepWait(day + 1, month);
                     return;
@@ -243,25 +243,25 @@ public class ComputerPlayer : MonoBehaviour {
             move = Random.Range(0, 4);
             switch (move) {
                 case 0:
-                    if (datesController.getFinalDay() >= day + 1) {
+                    if (datesController.getFinalDay() >= day + 1 && (win[month, day + 1] == 1 || win[month, day + 1] == 2)) {
                         datesController.computerStepWait(day + 1, month);
                         return;
                     }
                     break;
                 case 1:
-                    if (datesController.getFinalDay() >= day + 2) {
+                    if (datesController.getFinalDay() >= day + 2 && (win[month, day + 2] == 1 || win[month, day + 2] == 2)) {
                         datesController.computerStepWait(day + 2, month);
                         return;
                     }
                     break;
                 case 2:
-                    if (datesController.getFinalMonth() >= month + 1) {
+                    if (datesController.getFinalMonth() >= month + 1 && (win[month + 1, day] == 1 || win[month + 1, day] == 2)) {
                         datesController.computerStepWait(day, month + 1);
                         return;
                     }
                     break;
                 case 3:
-                    if (datesController.getFinalMonth() >= month + 2) {
+                    if (datesController.getFinalMonth() >= month + 2 && (win[month + 2, day] == 1 || win[month + 2, day] == 2)) {
                         datesController.computerStepWait(day, month + 2);
                         return;
                     }

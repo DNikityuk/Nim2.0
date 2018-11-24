@@ -70,4 +70,8 @@ public class Rock : MonoBehaviour {
     public void setSelectRequest(bool val) {
         rocListener.setSelectRequest(val);
     }
+
+    public void setShowRightRocks(bool val) {
+        rocListener.setShowRightRocks(val);
+    }
 }

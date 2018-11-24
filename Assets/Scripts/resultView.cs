@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class resultView : MonoBehaviour {
-    
+
     void Start() {
         GetComponent<Canvas>().enabled = false;
     }
@@ -25,7 +25,18 @@ public class resultView : MonoBehaviour {
         SceneManager.LoadScene("EducationGame");
     }
 
-	public void backMenu() {
+	public void backMenuFromNim() {
+        MenuView.setGameNum(GameObject.Find("gameField").GetComponent<Controller>().getGameNum());
+        SceneManager.LoadScene("MenuWindow");
+    }
+
+    public void backMenuFromConstructed() {
+        MenuView.setGameNum(GameObject.Find("gameField").GetComponent<ConstructedController>().getGameNum());
+        SceneManager.LoadScene("MenuWindow");
+    }
+
+    public void backMenuFromDates() {
+        MenuView.setGameNum(GameObject.Find("gameField").GetComponent<DatesController>().getGameNum());
         SceneManager.LoadScene("MenuWindow");
     }
 

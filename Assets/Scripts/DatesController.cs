@@ -6,12 +6,12 @@ using System;
 public class DatesController : MonoBehaviour {
     int gameNum = 3;
     int gameLevel;
-    public Image compStep, playerStep;
     protected ComputerPlayer cp;
     protected int currentPlayer = -1;
     protected bool endGame;
     protected bool startPlay = false;
     protected bool pause = false;
+    public ArhiveGame archive;
     //public Canvas firstTurnView;
     public Canvas resultView;
     protected Button pauseButton;
@@ -43,6 +43,10 @@ public class DatesController : MonoBehaviour {
         currentDay = startDay;
         currentGameMonth = currentMonth;
         prevMonth = currentMonth;
+
+        archive = new ArhiveGame(prepDate(currentDay, currentGameMonth));
+        GetComponent<ViewArchiveMenu>().setArchive(archive);
+
         if (currentMonth == 11) {
             rightChanger.interactable = false;
         }
@@ -60,17 +64,16 @@ public class DatesController : MonoBehaviour {
         setStartPlayer(datesPropertiesView.getFirstTurn());
     }
 
-    protected IEnumerator pauseAndActiveEndButton() {
-        yield return new WaitForSeconds(2.0f);
-        setEnabledCells(true);
-    }
-
     public void setEnabledCells(bool val) {
         for (int i = 0; i < numDays[currentMonth]; i++) {
             dateCells[i].setCanSelected(val);
         }
-        if (val && currentMonth != 11)
+        if (currentMonth != finalMonth)
             rightChanger.enabled = val;
+        else
+            rightChanger.enabled = true;
+        if (currentMonth == finalMonth)
+            rightChanger.interactable = false;
     }
 
     protected virtual void Update() {
@@ -84,13 +87,14 @@ public class DatesController : MonoBehaviour {
                         setCurrentCell(false, currentDay);
                         currentDay = selectedCell;
                         currentGameMonth = currentMonth;
+                        archive.addStateDate(prepDate(currentDay, currentGameMonth));
                         setCurrentCell(true, currentDay);
                         unblockMovesCells();
-                        setEnabledCells(false);
                         setCurrentPlayer(1);
                     }
                 }
                 else {
+                    setEnabledCells(false);
                     cp.computerStepDates();
                     currentPlayer = 0;
                 }
@@ -142,6 +146,7 @@ public class DatesController : MonoBehaviour {
         setCurrentCell(false, currentDay);
         currentDay = newDay;
         currentGameMonth = newMonth;
+        archive.addStateDate(prepDate(currentDay, currentGameMonth));
         setCurrentCell(true, currentDay);
         unblockMovesCells();
         setEnabledCells(true);
@@ -181,8 +186,17 @@ public class DatesController : MonoBehaviour {
         fixButtons();
     }
 
+    private string formatMonth(string curMonth) {
+        if (currentMonth > 8) {
+            return (currentMonth + 1) + " - " + curMonth;
+        }
+        else {
+            return "0" + (currentMonth + 1) + " - " + curMonth;
+        }
+    } 
+
     private void fixButtons() {
-        month.text = months[currentMonth];
+        month.text = formatMonth(months[currentMonth]);
         if (numDays[prevMonth] == numDays[currentMonth]) {
             if (dateNum > numDays[currentMonth]) {
                 for (int i = dateNum - 1; i > numDays[currentMonth] - 1; i--) {
@@ -287,34 +301,16 @@ public class DatesController : MonoBehaviour {
     }
 
     public void setCurrentPlayer(int player) {
-        if (player == 0) {
-            playerStep.gameObject.SetActive(true);
-            compStep.gameObject.SetActive(false);
-        }
-        else {
-            playerStep.gameObject.SetActive(false);
-            compStep.gameObject.SetActive(true);
-        }
         currentPlayer = player;
     }
     
     public virtual void setStartPlayer(int player) {
-        if(player == 0) {
-            playerStep.gameObject.SetActive(true);
-            compStep.gameObject.SetActive(false);
-        }
-        else {
-            playerStep.gameObject.SetActive(false);
-            compStep.gameObject.SetActive(true);
-        }
         currentPlayer = player;
-        
+        archive.setFirstPlayer(currentPlayer);
         timer.enabledTimer(true);
         enabledGameButtons(true);
         startPlay = true;
     }
-
-
 
     public bool canContinueGame() {
         if(currentGameMonth == finalMonth && currentDay == finalDay) {
@@ -379,4 +375,30 @@ public class DatesController : MonoBehaviour {
     public int getCurrentGameMonth() {
         return currentGameMonth;
     }
+
+    public int getGameNum() {
+        return gameNum;
+    }
+
+    public string prepDate(int day, int month) {
+        day++;
+        month++;
+        string bufDay = "";
+        string bufMonth = "";
+        if (day > 9) {
+            bufDay += day;
+        }
+        else {
+            bufDay = "0" + day;
+        }
+        if (month > 9) {
+            bufMonth += month;
+        }
+        else {
+            bufMonth = "0" + month;
+        }
+        return bufDay + "." + bufMonth;
+    }
+
+
 }

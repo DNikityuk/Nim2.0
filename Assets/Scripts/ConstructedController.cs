@@ -2,10 +2,11 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class ConstructedController : MonoBehaviour {
     protected int numOfHeaps;
-    int gameNum = 0;
+    int gameNum = 2;
     int gameLevel;
     int ftLimit;
     int scLimit;
@@ -76,6 +77,9 @@ public class ConstructedController : MonoBehaviour {
                                 }
                                 if (heaps[i].isSelectedRequestHeap())
                                     break;
+                            }
+                            else {
+                                heaps[i].setShowRightRocks(ftLimit, scLimit);
                             }
                         }
                     }
@@ -305,5 +309,9 @@ public class ConstructedController : MonoBehaviour {
 
     public int getScLimit() {
         return scLimit;
+    }
+
+    public int getGameNum() {
+        return gameNum;
     }
 }

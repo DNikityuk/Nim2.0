@@ -5,7 +5,7 @@ using System;
 
 public class Controller : MonoBehaviour {
     protected int numOfHeaps;
-    int gameNum = 0;
+    int gameNum = 1;
     int gameLevel;
     public Heap[] heaps;
     protected ComputerPlayer cp;
@@ -23,7 +23,6 @@ public class Controller : MonoBehaviour {
     protected Button endButton, pauseButton;
     TimerCount timer;
     protected System.Random random;
-
 
     void Start() {
         endGame = false;
@@ -255,5 +254,9 @@ public class Controller : MonoBehaviour {
 	
 	public void openNote() {
         GameObject.Find("CanvasNote").GetComponent<Note>().open();
+    }
+
+    public int getGameNum() {
+        return gameNum;
     }
 }
